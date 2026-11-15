@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machame Rice Warehouse - Dashboard</title>
+    <!-- Fonti ya Kisasa ya Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+            color: #333333;
+            margin: 0;
+            padding: 20px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .top-bar {
+            max-width: 1000px;
+            margin: 0 auto 15px auto;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        h1 {
+            color: #1b5e20;
+            text-align: center;
+            font-weight: 700;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            color: white;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(46, 125, 50, 0.2);
+            transition: all 0.2s ease-in-out;
+        }
+        .btn:hover {
+            background: linear-gradient(135deg, #1b5e20, #0f3812);
+            transform: translateY(-2px);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #e53935, #c62828) !important;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            background: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: background 0.3s ease;
+        }
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+        }
+        th {
+            background-color: #1b5e20;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        td {
+            border-bottom: 1px solid #edf2f7;
+            font-size: 14px;
+        }
+        tr:nth-child(even) {
+            background-color: #f8faf9;
+        }
+        .form-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #2e7d32;
+            margin-top: 25px;
+            transition: background 0.3s ease;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        /* --- STYLES KAMILI ZA MODI YA USIKU (DARK MODE) --- */
+        body.dark-mode {
+            background-color: #121212 !important;
+            color: #e0e0e0 !important;
+        }
+        body.dark-mode .container {
+            background-color: #1e1e1e !important;
+            color: #e0e0e0 !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+        }
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 {
+            color: #81c784 !important;
+        }
+        body.dark-mode .subtitle {
+            color: #aaaaaa !important;
+        }
+        body.dark-mode .form-card {
+            background-color: #252525 !important;
+            color: #e0e0e0 !important;
+            border-left-color: #81c784 !important;
+        }
+        body.dark-mode table {
+            background-color: #1e1e1e !important;
+            color: #e0e0e0 !important;
+        }
+        body.dark-mode th {
+            background-color: #0f3812 !important;
+            color: #ffffff !important;
+        }
+        body.dark-mode td {
+            border-bottom: 1px solid #2c2c2c !important;
+            color: #e0e0e0 !important;
+        }
+        body.dark-mode tr:nth-child(even) {
+            background-color: #252525 !important;
+        }
+        body.dark-mode tr:hover {
+            background-color: #2c2c2c !important;
+        }
+        body.dark-mode input {
+            background-color: #2c2c2c !important;
+            color: #ffffff !important;
+            border: 1px solid #444 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Kitufe cha Safi cha Badili Modi Juu Kulia -->
+    <div class="top-bar">
+        <button onclick="toggleDarkMode()" class="btn" style="background: #333;">🌙 Badili Modi</button>
+    </div>
+
+    <div class="container">
+        <h1>🌾 Machame Rice Warehouse</h1>
+        <p class="subtitle">Mfumo wa Kisasa wa Kusimamia Ghala na Wateja</p>
+
+        <!-- Vifungo vya Uendeshaji -->
+        <div class="nav-buttons">
+    <a href="http://127.0.0.1:5000/register" class="btn">➕ Sajili Mteja Mpya</a>
+    <a href="http://127.0.0.1:5000/add-stock" class="btn">📥 Pokea Mpunga na Toa Risiti</a>
+    <a href="http://127.0.0.1:5000/withdraw" class="btn btn-danger">📤 Toa Mpunga Ghalani</a>
+    <a href="http://127.0.0.1:5000/report" class="btn" style="background-color: #8e44ad;">📈 Tazama Ripoti</a>
+    <!-- Kitufe cha Modi ya Usiku Kimewekwa Hapa Kuwa Safi -->
+    <button onclick="toggleDarkMode()" class="btn" style="background: #333; cursor: pointer;">🌙 Badili Modi</button>
+</div>
+
+        <!-- Orodha ya Wakulima / Wateja -->
+        <h2>Orodha ya Wakulima</h2>
+        <table>
+            <tr>
+                <th>Namba</th>
+                <th>Jina</th>
+                <th>Simu</th>
+                <th>Kijiji</th>
+            </tr>
+            {% for farmer in farmers %}
+            <tr>
+                <td>{{ farmer[1] }}</td>
+                <td>{{ farmer[2] }}</td>
+                <td>{{ farmer[3] }}</td>
+                <td>{{ farmer[4] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <!-- Fomu ya Kutoa Mzigo / Mauzo -->
+        <div class="form-card">
+            <h3>Toa Mzigo / Mauzo</h3>
+            <form action="/withdraw" method="POST">
+                <label>Jina la Mteja:</label>
+                <input type="text" name="customer_name" required>
+                
+                <label>Magunia ya Kutoa:</label>
+                <input type="number" name="bags_out" required>
+                
+                <button type="submit" class="btn btn-danger" style="width: 100%;">Thibitisha Kutoka kwa Mzigo</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+    }
+</script>
+</body>
+</html>
